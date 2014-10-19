@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demo"> <!--ng-app digo a angular que es una aplicacion angular-->
+<head>
+    <meta charset="UTF-8">
+    <title>Aplicacion</title>
+    <link rel="stylesheet" href="css/foundation.min.css"><!--Estilos Foundation-->
+    <link rel="stylesheet" href="css/foundation-icons.css"><!--Iconos Foundation-->
+    <link rel="stylesheet" href="css/normalize.css"><!--Estilo normalizado según navegador-->
+    <script src="js/angular/angular.min.js"></script><!--Angular-->
+    <script src="dpd.js"></script><!--Archivo inexistente inyectado por Deployd para consultas NO USAR EN ANGULAR-->
+</head>
+<body>
+   <div ng-controller="demoCtrl">
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nombre 1</td>
+                <td>Apellido 1</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    
+    <script>
+        var app = angular.module('demo', []); //Modulo = MVC demo= ng-app
+        
+        app.controller('demoCtrl', function($scope, $http){
+            
+//            $scope relaciona el controlador con la vista
+            
+            $http.get('/personas').success(function(data){ //Coge los datos desde la bbdd con la funcion get y si success inyecta en la variable data y persoans = data si no error
+                $scope.personas = data;
+            }).error(function(err){
+                console.log(err);
+            });
+            
+        });
+        
+    </script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+</body>
+</html>
